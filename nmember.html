@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <input id="name" type="text" placeholder="아이디를 입력하세요.">
+    <input id="pw" type="password" placeholder="비밀번호를 입력하세요">
+    <button id="submit">회원가입</button>
+
+</div>
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+
+    $("#submit").on("click",function () {
+        var name = $("#name").val();
+        var pw = $("#pw").val();
+        var obj = {name : name, password : pw} ;
+        axios.post("http://192.168.41.10:8081/member/sign",obj);
+       location.href="http://localhost:9000/w1/LOGIN.html";
+
+
+    });
+
+
+
+</script>
+</body>
+</html>

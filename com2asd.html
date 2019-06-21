@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    .context{
+        display: grid;
+        grid-template-columns: 5fr 5fr;
+        grid-auto-rows: 5VH 15vh 70vh;
+        grid-template-areas:
+                " 공백 공백   "
+                "logo logo"
+                "toDoList finish";
+    }
+
+    .logo{
+        margin-left: 25vw;
+        grid-area: logo;
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        width: 50vw;
+        box-sizing: border-box;
+        border: 2px solid chocolate;
+        font-size: 65px;
+    }
+    .toDoList {
+        margin-left: 25vw;
+        width: 25vw;
+        grid-area: toDoList;
+        display: flex;
+        justify-content: center;
+        align-items:baseline;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        border: 2px solid chocolate;
+
+    }
+    .finish{
+        width: 25vw;
+        grid-area: finish;
+        display: flex;
+        justify-content: center;
+        align-content:center;
+        box-sizing: border-box;
+        border: 2px solid chocolate;
+    }
+</style>
+<div class="context">
+<div class="logo"> todoilst</div>
+
+<div class="toDoList">
+    <input type="text" name="ListItem"/>
+
+
+<button id="btn">Add</button>
+<br/>
+<ol></ol>
+</div>
+    <div class="finish">finish</div>
+</div>
+<script src="js/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(
+        function(){
+            $('#btn').click(
+                function(){
+                    var toAdd = $('input[name=ListItem]').val();
+                    console.log(toAdd);
+                    console.dir(toAdd);
+                    $('ol').append('<li>' + toAdd + '</li>');
+                });
+
+            $("input[name=ListItem]").keyup(function(event){
+                if(event.keyCode == 13){
+                    $("#btn").click();
+                }
+            });
+
+            $(document).on('dblclick','li', function(){
+                $(this).toggleClass('strike').fadeOut('slow');
+            });
+
+            $('input').focus(function() {
+                $(this).val('');
+            });
+
+            $('ol').sortable();
+
+        }
+    );
+</script>
+</body>
+</html>

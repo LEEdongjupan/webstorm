@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    .container{
+        display : grid;
+        grid-template-columns: 2fr 2fr;
+        grid-template-rows: 10vh 60vh;
+        grid-template-areas:
+                'top top'
+                'todo done';
+    }
+    .logo{
+        grid-area: top;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #00bfa5;
+    }
+    .todo{
+        grid-area: todo;
+        border: 1px solid #00bfa5;
+
+    }
+    .done{
+        grid-area: done;
+        border: 1px solid #00bfa5;
+
+    }
+    ul{
+        list-style: none;
+        border: 1px solid #00bfa5;
+    }
+    .donelist li{
+        text-decoration: line-through;
+        color: hotpink;
+    }
+
+
+</style>
+
+<div class="container">
+
+    <div class="logo"> to do list</div>
+
+    <div class="todo">
+        <div> 해야 할 일</div>
+        <input type="text" id="todo" placeholder="입력하세요">
+        <div class="list">
+            <ul class="todolist"></ul>
+        </div>
+    </div>
+
+    <div class="done">
+        끝난 일
+        <ul class="donelist"></ul>
+    </div>
+
+
+</div>
+
+<script src="js/jquery-3.4.1.min.js"></script>
+
+<script>
+    // input 창에서 엔터로 리스트 추가하기
+    $("#todo").keydown(function(key) {
+        if (key.keyCode == 13) {
+            var getdo = $(this).val();
+            $(".todolist").append("<li>"+getdo+"<a href='' id='removetodo'> 삭제</a></li>");
+            $(this).val("");
+        }
+    });
+
+    $(".todolist").on("dblclick","li",function (e) {
+        e.stopPropagation(); // 버블링 금지
+        var getlist = $(this).html();
+        console.log(getlist);
+        $(this).remove();
+
+        $(".donelist").append("<li>"+getlist+"</li>");
+    })
+
+    $(".todolist").on("click","#removetodo", function (e) {
+        e.preventDefault(); // a태크 금지
+        e.stopPropagation(); // 버블링 금지
+
+        $(this).parent().remove();
+    })
+
+</script>
+
+</body>
+</html>

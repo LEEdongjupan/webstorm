@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body onload="settime()">
+<div>login success</div>
+<script>
+    function settime(){
+        setTimeout('gourl()',2000)  // 2초후 gourl() 함수를 호출한다.
+    }
+    function gourl() {
+        location.href = "http://localhost:9000/w1/nmember.html"  // 페이지 이동...
+    }
+</script>
+
+</body>
+</html>

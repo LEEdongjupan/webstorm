@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    .grid{
+        display: grid;
+        grid-template-columns: 5fr 5fr;
+        grid-auto-rows: 5VH 15vh 70vh;
+        grid-template-areas:
+                " 공백 공백   "
+                "todolist todolist"
+                "start finish";
+
+    }
+    .todolist{
+        margin-left: 25vw;
+        grid-area: todolist;
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        width: 50vw;
+        box-sizing: border-box;
+        border: 2px solid chocolate;
+        font-size: 65px;
+
+    }
+    .start{
+        margin-left: 25vw;
+        width: 25vw;
+        grid-area: start;
+        display: flex;
+        justify-content: center;
+        align-items:baseline;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        border: 2px solid chocolate;
+
+    }
+
+    .finish{
+        width: 25vw;
+        grid-area: finish;
+        display: flex;
+        justify-content: center;
+        align-content:center;
+        box-sizing: border-box;
+        border: 2px solid chocolate;
+    }
+    /*#dodo{*/
+    /*    display: flex;*/
+    /*    justify-content: center;*/
+    /*    align-items: center;*/
+    /*}*/
+
+</style>
+<script src="js/jquery-3.4.1.min.js"></script>
+<div class="grid">
+ <div class="todolist"> Todolist </div>
+    <div class="start">list
+
+
+     <input id="list" type="text"  placeholder="할일들">
+          <button id="btn">save</button>
+
+
+        <ul id="dodo">   오늘 해야할  list</ul>
+
+
+    </div>
+
+ <div class="finish" > finish list</div>
+</div>
+<script>
+    $(document).ready(
+        function(){
+            $("#btn").click(function () {
+
+                var toAdd = $('input[name=ListItem]').val();
+                console.log(toAdd);
+
+                 $('ul').append('<li>' + toAdd + '</li>');
+
+
+                  $(".start"). on("click","div a",function (e) {
+                    e.preventDefault(); // a태크 금지
+                    e.stopPropagation(); // 버블링 금지
+
+                    $(dofi).children().appendTo(".finish");
+
+                });
+            });
+        });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    .login{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+</style>
+ <div class="login">
+     <input type="text" placeholder="ID" id="lid">
+     <input type="password" placeholder="PASSWORD" id="lpw">
+     <button id="lg">login</button>
+     <button id="nlg">회원가입</button>
+ </div>
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    $("#lg").on("click",function () {
+        var name = $("#lid").val();
+        var pw = $("#lpw").val();
+        var obj = {name : name, password : pw} ;
+        axios.post("http://192.168.41.10:8081/member/check",obj).then(response => response.data)
+            .then(res => {
+                console.log(res);
+                if(res ==1){
+                    location.href ="http://localhost:9000/w1/loginsc.html";
+                }else{
+                    location.href="http://localhost:9000/w1/loginfa.html";
+                }
+            })
+
+    }) ;
+    $("#nlg").on("click",function () {
+
+        location.replace("http://localhost:9000/w1/nmember.html");
+
+    });
+
+
+
+  //성공시.
+   //실패시
+</script>
+</body>
+</html>

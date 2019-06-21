@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<style>
+    .container{
+        display: flex;
+        width: 100vw;
+        flex-wrap: wrap;
+    }
+    #map{
+        width: 70vw;
+        height: 50vh;
+    }
+    .content{
+        width: 30vw;
+        height: 50vh;
+    }
+    .do{
+        display: flex;
+        flex-direction: column;
+    }
+
+</style>
+<div class="container">
+    <div id="map"></div>
+
+
+    <div class="content">
+        <ul>
+            <li>위치 및 날씨 상세 정보</li>
+        </ul>
+        <ul class="lat"></ul>
+        <ul class="lng"></ul>
+        <ul class="temp"></ul>
+    </div>
+
+    <div class="do">
+        <button onclick="getJSON()">현제 위치정보 파악하기</button>
+    </div>
+
+</div>
+
+<div>
+    <ul class="temp"></ul>
+</div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=26d067675fae1153771670880ded5a57"></script>
+<script>
+    var container = document.querySelector('#map');
+    var options = {
+        center: new daum.maps.LatLng(37.502833, 127.024624),
+        level: 4
+    };
+
+    var map = new daum.maps.Map(container, options);
+    var beforeMarker;
+    var str1 ="";
+    var str2 ="";
+    var lat = document.querySelector(".lat");
+    var lng = document.querySelector(".lng");
+
+    daum.maps.event.addListener(map, 'dragend', function() {
+
+        var currentPos = map.getCenter();
+
+        console.log("로딩 새로운 데이터");
+
+        var latLng = new daum.maps.LatLng(currentPos.jb,currentPos.ib);
+
+        var marker = new daum.maps.Marker({
+            position: latLng });
+
+        if(beforeMarker){
+            beforeMarker.setMap(null);
+        }
+
+        marker.setMap(map);
+        beforeMarker = marker;
+
+        str1 = "<li>"+ "위도" + currentPos.ib + "</li>";
+        str2 = "<li>"+ "경도" + currentPos.jb + "</li>";
+
+        lat.innerHTML = str1;
+        lng.innerHTML = str2;
+
+
+    });
+
+</script>
+
+<script>
+    var str3 = "";
+
+    var temp = document.querySelector(".temp");
+
+    function getJSON() {
+
+
+        console.log("operate function.... getJSON");
+        fetch("http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=1db0135ee07dc4dd23c793a0d9571e05")
+            .then(response => response.json())
+            .then(arr32 => {console.log(arr32); console.log(arr32.weather[0].main)
+                    str3 = "<li>"+ "날씨" + arr32.weather[0].main + "</li>" ;
+                    str3 = "<li><img src=img/"+arr32.weather[0].main+".png"+"></li>";
+                    temp.innerHTML = str3;
+                }
+            )
+
+    };
+
+
+
+
+</script>
+
+</body>
+</html>
